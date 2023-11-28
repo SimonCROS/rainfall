@@ -2,7 +2,8 @@
     "files.associations": {
         "source": "c",
         "*.asm": "asm-collection",
-        "string.h": "c"
+        "walkthrough": "markdown",
+        "flag": "plaintext"
     },
     "[asm-collection]": {
         "editor.detectIndentation": false,
