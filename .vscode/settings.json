@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "source": "c",
+        "*.asm": "asm-collection",
+        "string.h": "c"
+    },
+    "[asm-collection]": {
+        "editor.detectIndentation": false,
+        "editor.indentSize": "tabSize",
+        "editor.tabSize": 8,
+    }
+}

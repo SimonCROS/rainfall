@@ -1,0 +1,27 @@
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main(int argc, char const *argv[])
+{
+    int number = atoi(argv[1]);
+    if (number == 423)
+    {
+        char *str = strdup("/bin/sh");
+        char *nextargv[] = { str, NULL };
+
+        int gid = getegid();
+        int uid = geteuid();
+        setresgid(gid, gid, gid);
+        setresuid(uid, uid, uid);
+        execv("/bin/sh", (char**)nextargv);
+    }
+    else
+    {
+        fwrite("No !\n", 5, 1, stderr);
+    }
+    return 0;
+}
