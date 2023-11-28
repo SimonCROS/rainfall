@@ -3,11 +3,20 @@
         "source": "c",
         "*.asm": "asm-collection",
         "walkthrough": "markdown",
-        "flag": "plaintext"
+        "flag": "plaintext",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "unistd.h": "c"
     },
     "[asm-collection]": {
         "editor.detectIndentation": false,
         "editor.indentSize": "tabSize",
         "editor.tabSize": 8,
+        "editor.insertSpaces": false,
+    },
+    "[c]": {
+        "editor.detectIndentation": false,
+        "editor.indentSize": 4,
+        "editor.insertSpaces": true,
     }
 }

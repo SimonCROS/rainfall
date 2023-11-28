@@ -1,0 +1,22 @@
+#include <stdio.h>
+
+void p()
+{
+    void *ret; // EBP - 12
+    char result[76]; // EBP - 76
+
+    fflush(stdout);
+    gets((char *)result);
+    ret = NULL; // = EBP + 4 (pointer saved by 'call' in main)
+    ret = (int)ret & 0xb0000000; // (int)ret for x86
+    if (ret == 0xb0000000)
+    {
+        
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    p();
+    return 0;
+}
