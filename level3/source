@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// stack starts at -536 (0x218)
+// stack ends at 0 (0x0)
+
+// buffer starts at -520 (0x208)
+// buffer len 512 (0x200)
+// buffer ends at -8 (0x8)
+
+void v()
+{
+    char buffer[512];
+
+    fgets(buffer, 512, stdin);
+    int result = printf(buffer);
+    // *(unsigned char*)result += (unsigned char)result;
+    // *(unsigned char*)result += (unsigned char)result;
+    if (result == 0x40)
+    {
+        fwrite("Wait what?!\n", 1, 12, stdout);
+        system("/bin/sh");
+    }
+}
+
+int main(int argc, char const *argv[])
+{
+    v();
+    return 0;
+}
