@@ -8,11 +8,13 @@ void p()
     fflush(stdout);
     gets((char *)result);
     ret = NULL; // = EBP + 4 (pointer saved by 'call' in main)
-    ret = (int)ret & 0xb0000000; // (int)ret for x86
-    if (ret == 0xb0000000)
+    if (((int)ret & 0xb0000000) == 0xb0000000)
     {
-        
+        printf("(%p)\n", ret);
+        exit(1);
     }
+    puts(result);
+    strdup(result);
 }
 
 int main(int argc, char const *argv[])
