@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// stack starts at -536 (0x218)
+// stack ends at 0 (0x0)
+
+// buffer starts at -520 (0x208)
+// buffer len 512 (0x200)
+// buffer ends at -8 (0x8)
+
+void p(char* arg1)
+{
+    printf(arg1);
+}
+
+void n()
+{
+    char buffer[512];
+
+    fgets(buffer, 512, stdin);
+    p(buffer);
+    if (*(int *)(0x08049810) == 0x01025544)
+    {
+        system("/bin/cat /home/user/level5/.pass");
+    }
+}
+
+int main()
+{
+    n();
+}

@@ -21,8 +21,7 @@ void v()
     }
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
     v();
-    return 0;
 }
