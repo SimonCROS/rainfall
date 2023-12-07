@@ -17,8 +17,7 @@ void p()
     strdup(result);
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
     p();
-    return 0;
 }
