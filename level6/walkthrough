@@ -1,0 +1,14 @@
+Lorsqu'on fait un disas main, on voit la fonction strcpy qui est utilise.
+Il faut savoir que sans protection, strcpy est susceptible a un buffer overflow.
+
+En sachant cela, on peut juste definir qu'on doit changer EIP (L'adresse vers la prochaine commande).
+
+On cherche donc a trouver d'abord l'offset, avec l'aide d'un pattern, on peut voir que EIP est a 72.
+
+On cherche aussi la fonction vers laquelle on doit pointer, ici la fonction n a l'adresse `0x08048454` qui appelle `system("/bin/cat /home/user/level7/.pass");`.
+
+On a donc un offset de 72 et une adresse vers laquelle rediriger EIP.
+
+``` bash 
+./level6 $(printf 'A%.0s' {1..72} ; printf '\x54\x84\x04\x08')
+```
