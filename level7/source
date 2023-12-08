@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-extern char c;
+extern char c[68];
 
 int m()
 {
@@ -10,7 +10,7 @@ int m()
 
     v1 = time();
     v0 = &c;
-    return printf("%s - %d\n",c, time);
+    return printf("%s - %d\n", c, time);
 }
 
 int main(int argc, char** argv)
@@ -27,7 +27,7 @@ int main(int argc, char** argv)
     v0[1] = malloc(8);
     strcpy(v1[1], argv[1]);
     strcpy(v0[1], argv[2]);
-    fgets(&c, 68, fopen("/home/user/level8/.pass", "r"));
+    fgets(c, 68, fopen("/home/user/level8/.pass", "r"));
     puts("~~");
     return 0;
 }
