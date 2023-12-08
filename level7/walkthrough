@@ -1,0 +1,30 @@
+On voit qu'avec 0 ou 1 argument, le programme crash.
+
+On regarde donc ce qu'il se passe dans gdb et on peut voir qu'il y'a 2 strcpy, l'un copiant argv[1] et l'autre argv[2].
+Aussi, on remarque que avec 2 arguments, le premier crash a 21 caracteres.
+
+Le programme a aussi une fonction inutilisee `m` qui permet de print `c` qui est une variable globale.
+
+On decide donc de chopper l'offset et on obtient effectivement 20.
+
+On peut voir que la valeur de EAX est modifie.
+Ici EAX est un pointeur vers argv[1] et argv[2].
+
+```
+0x080485a5 <+132>:   mov    eax,DWORD PTR [ebp+0xc]
+0x0804858b <+106>:   add    eax,0x4
+ 
+0x080485a5 <+132>:   mov    eax,DWORD PTR [ebp+0xc]
+0x080485a8 <+135>:   add    eax,0x8
+```
+
+Le probleme etant que `c` est set apres les strcpy, on doit donc trouver un moyen de l'afficher apres le fgets.
+
+Par chance, on a un put@plt, on peut donc comme dans l'exercice 5, modifier l'adresse de retour du put@got a l'adresse `0x8049928` et le rediriger vers `m` qui est a l'adresse `0x080484f4`.
+
+On a donc un offset de 20 vers EAX qui pointe vers `argv[1]/argv[2]` et on le redirige vers `\x28\x99\x04\x08` (put@got) `\xf4\x84\x04\x08` (m)
+
+On a donc:
+```bash
+./level7 $(printf 'A%.0s' {1..20} ; printf '\x28\x99\x04\x08') $(printf '\xf4\x84\x04\x08')
+```
