@@ -14,8 +14,8 @@ int m()
 int main(int argc, char** argv, char** envp)
 {
     char* eax = malloc(0x40);
-    int (** eax_1)() = malloc(4);
-    *eax_1 = m;
+    int (** func)() = malloc(4);
+    *func = m;
     strcpy(eax, argv[1]);
-    return (*eax_1)();
+    return (*func)();
 }
