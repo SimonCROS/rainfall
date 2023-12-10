@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 Cet exercice reprend exactement le principe du précédent, mais l'on effectue une redirection du exit@got.\
 La Global Offset Table (GOT) ainsi que la Procedure Linkage Table (PLT) servent à résoudre des adresses dans des librairies dynamiques.
 La PLT fonctionne comme un proxy:

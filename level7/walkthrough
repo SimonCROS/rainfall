@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 On voit qu'avec 0 ou 1 argument, le programme crash.
 
 On regarde donc ce qu'il se passe dans gdb et on peut voir qu'il y'a 2 strcpy, l'un copiant argv[1] et l'autre argv[2].

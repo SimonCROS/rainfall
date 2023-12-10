@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 Cet exercice reprend exactement le principe du précédent, mais c'est une sous-fonction qui appelle printf.
 La valeur change également.
 On doit maintenant écrire `16930116` dans `0x08049810`.

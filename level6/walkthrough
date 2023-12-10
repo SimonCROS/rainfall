@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 Lorsqu'on fait un disas main, on voit la fonction `strcpy` qui est utilisée pour copier l'argument du programme dans une zone de mémoire alouée.
 Puis le programme appelle explicitement la fonction à l'adresse contenue dans une autre zone mémoire alouée.
 

@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 Sur ce premier exercice, un simple désassemblage du main montre un cmp statique entre le premier argument et 423, on peut juste lancer
 `./level0 423`
 pour que ça lance /bin/sh sur level1.

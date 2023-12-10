@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 Lorsqu'on fait un disas main, on voit la fonction gets qui est utilise.
 De plus en decompilant le programe, on peut voir un offset de 76
 gets est susceptible au buffer overflow.

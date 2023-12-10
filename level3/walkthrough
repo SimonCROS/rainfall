@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 Le disas du main montre un appel direct à la fonction `v`.
 Les insctructions de `v` montrent l'utilisation de `fgets`, ainsi qu'à `printf`.
 On voit aussi qu'une comparaison est faite entre le contenu de `0x0804988c` et 64 (0x40), qui, si elle est égale, ouvre un shell avec `/bin/sh`.
