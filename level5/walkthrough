@@ -11,7 +11,7 @@ La PLT fonctionne comme un proxy:
 
 Pour faire la redirection du exit, on doit d'abord le trouver, pour cela on va suivre l'exit de la fonction `n`, et à la fin on obtient:
 
-```
+```text
 (gdb) x 0x8049838
 0x8049838 <exit@got.plt>:       0x080483d6
 ```

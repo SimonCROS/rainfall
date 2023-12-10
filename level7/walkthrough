@@ -26,7 +26,7 @@ Par chance, on a un put@plt, on peut donc comme dans l'exercice 5, modifier l'ad
 
 Voici l'état de la mémoire pour nous aider à visualiser tout ça si on lance `./level7 hello world` :
 - avant l'écriture de "hello"
-```txt
+```text
             ┌─────────────┐                       ┌─────────────┐        
         ┌───┴──┐          ↓                   ┌───┴──┐          ↓        
 000000010804a018   0000000000000000   000000020804a038   0000000000000000
@@ -34,7 +34,7 @@ Voici l'état de la mémoire pour nous aider à visualiser tout ça si on lance 
     0804a008           0804a018           0804a028           0804a038    
 ```
 - avant l'écriture de "world"
-```txt
+```text
             ┌─────────────┐                       ┌─────────────┐        
         ┌───┴──┐          ↓ "hello"           ┌───┴──┐          ↓        
 000000010804a018   6c6c65680000006f   000000020804a038   0000000000000000
@@ -42,7 +42,7 @@ Voici l'état de la mémoire pour nous aider à visualiser tout ça si on lance 
     0804a008           0804a018           0804a028           0804a038    
 ```
 - résultat final
-```txt
+```text
             ┌─────────────┐                       ┌─────────────┐        
         ┌───┴──┐          ↓ "hello"           ┌───┴──┐          ↓ "world"
 000000010804a018   6c6c65680000006f   000000020804a038   6c726f7700000064
@@ -53,7 +53,7 @@ Voici l'état de la mémoire pour nous aider à visualiser tout ça si on lance 
 ---
 
 On veut donc essayer d'écrire l'adresse de `m` dans `puts@got`, voici le résultat souhaité :
-```txt
+```text
             ┌─────────────┐                       ┌──────────┐   
         ┌───┴──┐          ↓                   ┌───┴──┐       ↓   
 000000010804a018   ################...########puts@got       m   
