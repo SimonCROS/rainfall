@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 int main(int argc, const char **argv, const char **envp)
 {
   char s[5];
@@ -31,3 +35,4 @@ int main(int argc, const char **argv, const char **envp)
   }
   return 0;
 }
+

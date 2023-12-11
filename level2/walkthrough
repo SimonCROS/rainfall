@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 Le disas du main montre un appel direct à la fonction `p`.
 Les insctructions de `p` montrent l'utilisation de `gets` qui est sujet à du buffer overflow.
 

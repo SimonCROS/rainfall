@@ -1,4 +1,8 @@
-extern char c;
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+extern char c[68];
 
 int m()
 {
@@ -7,24 +11,26 @@ int m()
 
     v1 = time();
     v0 = &c;
-    return printf("%s - %d\n",c, time);
+    return printf("%s - %d\n", c, time);
 }
 
 int main(int argc, char** argv)
 {
-    unsigned int v0[2];
-    unsigned int v1[2];
+    int *v1;
+    int *v2;
     char v3;
 
-    v1[0] = malloc(8);
+    v1 = malloc(8);
     v1[0] = 1;
     v1[1] = malloc(8);
-    v0[0] = malloc(8);
-    v0[0] = 2;
-    v0[1] = malloc(8);
+    v2 = malloc(8);
+    v2[0] = 2;
+    v2[1] = malloc(8);
+
     strcpy(v1[1], argv[1]);
-    strcpy(v0[1], argv[2]);
-    fgets(&c, 68, fopen("/home/user/level8/.pass", "r"));
+    strcpy(v2[1], argv[2]);
+
+    fgets(c, 68, fopen("/home/user/level8/.pass", "r"));
     puts("~~");
     return 0;
 }
