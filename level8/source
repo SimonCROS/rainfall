@@ -17,7 +17,6 @@ int main(int argc, const char **argv, const char **envp)
 
     if (!memcmp(s, "auth ", 5)) {
       auth = (char *)malloc(4);
-      auth = 0;
       if (strlen(v5) <= 30)
         strcpy(auth, v5);
     }
@@ -27,7 +26,7 @@ int main(int argc, const char **argv, const char **envp)
       service = (int)strdup(v6);
     if (!memcmp(s, "login", 5))
     {
-      if (auth[8])
+      if (auth[31])
         system("/bin/sh");
       else
         fwrite("Password:\n", 1, 10, stdout);

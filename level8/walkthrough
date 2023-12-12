@@ -1,0 +1,34 @@
+Lorsqu'on lance le programme, on nous affiche (nil), (nil) et en tapant un peu de tout, on obtient rien d'incroyable.
+
+On fait donc un gdb et en decompilant le programme, on peut voir qu'il y'a 4 commandes possible:
+
+`auth ` qui cree (char *)auth[4].
+`reset` qui free auth.
+`service` qui fait un (int)strdup
+`login` qui a une condition auth[31] qui fait spawn le shell sinon affiche `Password:`
+
+En faisant quelques test, on peut voir que les adressses sont a la suite des autres.
+
+
+On essaye login seul, segfault
+on essaye service puis login, segfault
+on essaye auth puis login, Password:
+On essaye auth puis service puis login, Password:
+On essaye auth puis service 2x, puis login, On a le shell.
+
+Que s'est t'il passe ?
+
+auth 
+0x804a008, (nil) 
+
+service
+0x804a008, 0x804a0018
+service
+0x804a008, 0x804a028
+
+On a un check de auth[31], auth etant un char* il va donc check les 8 prochains bytes. Mais auth[8] est en dehors du malloc, son comportement va donc etre indefini.
+
+De plus, lorsque l'on fait service, on peut voir qu'il remplis la suite de la memoire de auth. On passe de 0x804a008 a 0x804a0018 (+16) puis de 0x804a0018 a 0x804a028 (+16).
+
+Ce qui nous amene a 32 qui est bien rempli.
+
