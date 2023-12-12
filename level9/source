@@ -1,0 +1,48 @@
+#include <cstring>
+
+class N
+{
+private:
+    int nb;
+
+public:
+    // Constructor
+    N(int param_1)
+    {
+        this->nb = param_1;
+    }
+
+    // Method to set annotation
+    void setAnnotation(char *param_1)
+    {
+        size_t n = strlen(param_1);
+        memcpy(this + 4, param_1, n);
+    }
+
+    // Overloaded addition operator
+    int operator+(const N &other) const
+    {
+        return nb + other.nb;
+    }
+
+    // Overloaded subtraction operator
+    int operator-(const N &other) const
+    {
+        return nb - other.nb;
+    }
+};
+
+int main(int argc, char* argv)
+{
+    if (argc < 2)
+    {
+        _exit(1);
+    }
+
+    N *v3 = new N(5);
+    N *v4 = new N(6);
+
+    N::setAnnotation(argv[1]);
+    (**(code **)*v4)(v4, v3);
+    return;
+}
