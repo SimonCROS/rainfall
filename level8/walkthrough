@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 Lorsqu'on lance le programme, on nous affiche (nil), (nil) et en tapant un peu de tout, on obtient rien d'incroyable.
 
 On fait donc un gdb et en decompilant le programme, on peut voir qu'il y'a 4 commandes possible:
