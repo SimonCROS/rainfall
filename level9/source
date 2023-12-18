@@ -43,6 +43,6 @@ int main(int argc, char* argv)
     N *v4 = new N(6);
 
     N::setAnnotation(argv[1]);
-    (**(code **)*v4)(v4, v3);
+    ((edx *)(*v4))(v4, v3);
     return;
 }

