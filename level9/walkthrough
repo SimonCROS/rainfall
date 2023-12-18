@@ -1,3 +1,5 @@
+<!-- vim: syntax=Markdown -->
+
 En lancant le programme, il se passe pas grand chose avec ou sans arguments sauf quand il y'a un grand nombre de caractere, ce qui fait segfault le programme.
 
 On decide donc de trouver si le programme touche des registres avec un pattern.
