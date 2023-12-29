@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "source": "c",
+        "level9/source": "cpp",
         "*.asm": "asm-collection",
         "walkthrough": "markdown",
         "flag": "plaintext",
