@@ -30,7 +30,6 @@ service
 
 On a un check de auth[31], auth etant un char* il va donc check les 8 prochains bytes. Mais auth[8] est en dehors du malloc, son comportement va donc etre indefini.
 
-De plus, lorsque l'on fait service, on peut voir qu'il remplis la suite de la memoire de auth. On passe de 0x804a008 a 0x804a0018 (+16) puis de 0x804a0018 a 0x804a028 (+16).
+De plus, lorsque l'on fait service, on peut voir qu'il remplit la suite de la memoire de auth. On passe de 0x804a008 a 0x804a0018 (+16) puis de 0x804a0018 a 0x804a028 (+16).
 
-Ce qui nous amene a 32 qui est bien rempli.
-
+Ce qui nous amène a 32 qui est bien rempli.
